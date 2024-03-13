@@ -67,21 +67,21 @@ const images = [
 const containerEl = document.querySelector(".gallery");
 containerEl.addEventListener("click", onImgClick);
 
-// const liEl = document.createElement("li");
-// liEl.classList.add("gallery-item");
-// const linkEl = document.createElement("a");
-// linkEl.classList.add("gallery-link");
-// linkEl.setAttribute("href", "large-images.jpg");
+const liEl = document.createElement("li");
+liEl.classList.add("gallery-item");
+const linkEl = document.createElement("a");
+linkEl.classList.add("gallery-link");
+linkEl.setAttribute("href", "large-images.jpg");
 
 linkEl.href = "${original}";
-// const imgEl = document.createElement("img");
-// imgEl.classList.add("gallery-image");
-// imgEl.setAttribute("src", "small-image.jpg");
-// imgEl.setAttribute("windth", "340");
+const imgEl = document.createElement("img");
+imgEl.classList.add("gallery-image");
+imgEl.setAttribute("src", "small-image.jpg");
+imgEl.setAttribute("windth", "340");
 
 imgEl.src = "${preview}";
-// imgEl.setAttribute("data-source", "large-images.jpg");
-// imgEl.setAttribute("alt", "Image description");
+imgEl.setAttribute("data-source", "large-images.jpg");
+imgEl.setAttribute("alt", "Image description");
 imgEl.alt = "${description}";
 
 function createMarkup(arr) {
@@ -111,16 +111,16 @@ console.log(createMarkup);
 
 const instance = basicLightbox.create(
   `<div class="modal">
-    <img windth="1280px" data-cource="${original}" alt="${description}"/>
-  </div>`,
-  {
-    onShow: (instance) => {
-      window.addEventListener("keydown", onImgClick);
-    },
-    onClose: (instance) => {
-      window.removeEventListener("keydown", onImgClick);
-    },
-  }
+    <img windth="1280px" data-cource=${original} alt=${description}/>
+  </div>`
+  // {
+  //   onShow: (instance) => {
+  //     window.addEventListener("keydown", onImgClick);
+  //   },
+  //   onClose: (instance) => {
+  //     window.removeEventListener("keydown", onImgClick);
+  //   },
+  // }
 );
 
 instance.show();
