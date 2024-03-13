@@ -63,3 +63,35 @@ const images = [
     description: "Lighthouse Coast Sea",
   },
 ];
+
+const containerEl = document.querySelector(".gallery");
+const liEl = document.createElement("li");
+liEl.classList.add("gallery-item");
+const linkEl = document.createElement("a");
+linkEl.classList.add("gallery-link");
+linkEl.setAttribute("href", "large-images.jpg");
+linkEl.href = "${original}";
+const imgEl = document.createElement("img");
+imgEl.classList.add("gallery-image");
+imgEl.setAttribute("src", "small-image.jpg");
+imgEl.src = "${preview}";
+imgEl.setAttribute("data-source", "large-images.jpg");
+imgEl.setAttribute("alt", "Image description");
+imgEl.alt = "${description}";
+
+const markup = images
+  .map(({ preview, original, description }) => {
+    return `<li class="gallery-item">
+           <a class="gallery-link" href="${original}">
+           <img
+           class="gallery-image"
+           src="${preview}"
+           data-cource="original"
+           alt="${description}"
+        />
+      </a>
+    </li>`;
+  })
+  .join();
+containerEl.insertAdjacentHTML("beforeend", markup);
+console.log(markup);
