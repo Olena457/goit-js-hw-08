@@ -1,1 +1,43 @@
+/* @import "src/styles/main"; */
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: #fff;
+  margin-bottom: 0;
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 24px;
+  column-gap: 22px;
+  width: 1128px;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: auto;
+}
+.gallery-item {
+  position: relative;
+  flex: 0 0 calc(33.33% - 22px);
+}
+.gallery-link {
+  text-decoration: none;
+  display: flex;
+  height: 100%;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.gallery-link:hover {
+  cursor: zoom-in;
+}
+.gallery-image {
+  width: 360px;
+  height: 200px;
+  object-fit: cover;
 
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.gallery-image:hover {
+  transform: scale(1.03);
+}
