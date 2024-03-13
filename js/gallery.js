@@ -66,61 +66,80 @@ const images = [
 
 const containerEl = document.querySelector(".gallery");
 containerEl.addEventListener("click", onImgClick);
-const liEl = document.createElement("li");
-liEl.classList.add("gallery-item");
-const linkEl = document.createElement("a");
-linkEl.classList.add("gallery-link");
-linkEl.setAttribute("href", "large-images.jpg");
+
+// const liEl = document.createElement("li");
+// liEl.classList.add("gallery-item");
+// const linkEl = document.createElement("a");
+// linkEl.classList.add("gallery-link");
+// linkEl.setAttribute("href", "large-images.jpg");
 
 linkEl.href = "${original}";
-const imgEl = document.createElement("img");
-imgEl.classList.add("gallery-image");
-imgEl.setAttribute("src", "small-image.jpg");
-imgEl.setAttribute("windth", "340");
-// imgEl.setAttribute("height", "200");
+// const imgEl = document.createElement("img");
+// imgEl.classList.add("gallery-image");
+// imgEl.setAttribute("src", "small-image.jpg");
+// imgEl.setAttribute("windth", "340");
+
 imgEl.src = "${preview}";
-imgEl.setAttribute("data-source", "large-images.jpg");
-imgEl.setAttribute("alt", "Image description");
+// imgEl.setAttribute("data-source", "large-images.jpg");
+// imgEl.setAttribute("alt", "Image description");
 imgEl.alt = "${description}";
 
-const markup = images
-  .map(({ preview, original, description }) => {
-    return `<li class="gallery-item">
+function createMarkup(arr) {
+  return arr
+    .map(
+      ({ preview, original, description }) =>
+        `<li class="gallery-item">
            <a class="gallery-link" href="${original}">
            <img
            class="gallery-image"
            src="${preview}"
-           data-cource="original"
            alt="${description}"
+           alt="${description}
+           windth="340"
         />
       </a>
-    </li>`;
-  })
-  .join("");
-containerEl.insertAdjacentHTML("beforeend", markup);
-console.log(markup);
-
-// function onImgClick(e) {
-//   e.preventDefault();
-//   if (e.target.nodeName !== "IMG") return;
+    </li>`
+    )
+    .join("");
+}
+containerEl.insertAdjacentHTML("beforeend", createMarkup(images));
+console.log(createMarkup);
 
 //   const itemImage = e.target.classList.contains("gallery-image");
 //   if (!itemImage) return;
 // }
 
-const currentImgEl = e.target.dataset.sours;
 const instance = basicLightbox.create(
-  `<img  windth="1112px" height="auto" src="${currentImgEl}" />`,
+  `<div class="modal">
+    <img windth="1280px" data-cource="${original}" alt="${description}"/>
+  </div>`,
   {
     onShow: (instance) => {
-      window.addEventListener("keydown", onEscKeyPress);
+      window.addEventListener("keydown", onImgClick);
     },
     onClose: (instance) => {
-      window.removeEventListener("keydown", onEscKeyPress);
+      window.removeEventListener("keydown", onImgClick);
     },
   }
 );
-// instance.show();
+
+instance.show();
+
+function prevDef(e) {
+  e.preventDefault();
+  if (e.target.nodeName !== "IMG") {
+    return;
+  }
+}
+
+function onImgClick(e) {
+  e.preventDefault();
+  if (e.target === e.curentTarget) {
+    return;
+  }
+}
+const currentImg = e.target.closest([data - cours]);
+const datasetSours = currentImg.dataset.cours;
 
 // function onEscKeyPress(e) {
 //   const ESC_KEY_CODE = "Escape";
@@ -128,14 +147,15 @@ const instance = basicLightbox.create(
 //   if (!escKey) return;
 //   instance.close();
 // }
-function onImgClick(e) {
-  e.preventDefault();
-  const datasetSours = e.target.dataset.source;
-  if (!datasetSours) return;
-  instance.element().querySelector("img").src = datasetSours;
-  instance.show();
-}
-function onEscKeyPress(e) {
-  if (e.code !== "Escape") return;
-  instance.close();
-}
+// function onImgClick(e) {
+//   e.preventDefault();
+//   if (!datasetSours) {
+//     return;
+//   }
+// instance.element().querySelector("img").src = datasetSours;
+//   instance.show();
+// }
+// function onEscKeyPress(e) {
+//   if (e.code !== "Escape") return;
+//   instance.close();
+// }

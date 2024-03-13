@@ -23,6 +23,7 @@ body {
 }
 .gallery-link {
   text-decoration: none;
+  width: 1280px;
   display: flex;
   height: 100%;
   transition: all 0.2s ease-in-out;
@@ -40,4 +41,7 @@ body {
 }
 .gallery-image:hover {
   transform: scale(1.03);
+}
+.modal {
+  display: flex;
 }
