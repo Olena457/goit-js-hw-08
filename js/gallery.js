@@ -1,7 +1,7 @@
 const images = [
   {
     preview:
-      "https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820__480.jpg",
+      "https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820__340.jpg",
     original:
       "https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820_1280.jpg",
     description: "Hokkaido Flower",
@@ -64,25 +64,26 @@ const images = [
   },
 ];
 
+// const liEl = document.createElement("li");
+// liEl.classList.add("gallery-item");
+// const linkEl = document.createElement("a");
+// linkEl.classList.add("gallery-link");
+// linkEl.setAttribute("href", "large-images.jpg");
+
+// linkEl.href = "${original}";
+// const imgEl = document.createElement("img");
+// imgEl.classList.add("gallery-image");
+// imgEl.setAttribute("src", "small-image.jpg");
+// imgEl.setAttribute("windth", "340");
+
+// imgEl.src = "${preview}";
+// imgEl.setAttribute("data-source", "large-images.jpg");
+// imgEl.setAttribute("alt", "Image description");
+// imgEl.alt = "${description}";
+
 const containerEl = document.querySelector(".gallery");
 containerEl.addEventListener("click", onImgClick);
-
-const liEl = document.createElement("li");
-liEl.classList.add("gallery-item");
-const linkEl = document.createElement("a");
-linkEl.classList.add("gallery-link");
-linkEl.setAttribute("href", "large-images.jpg");
-
-linkEl.href = "${original}";
-const imgEl = document.createElement("img");
-imgEl.classList.add("gallery-image");
-imgEl.setAttribute("src", "small-image.jpg");
-imgEl.setAttribute("windth", "340");
-
-imgEl.src = "${preview}";
-imgEl.setAttribute("data-source", "large-images.jpg");
-imgEl.setAttribute("alt", "Image description");
-imgEl.alt = "${description}";
+containerEl.addEventListener("click", onKeyPress);
 
 function createMarkup(arr) {
   return arr
@@ -93,53 +94,62 @@ function createMarkup(arr) {
            <img
            class="gallery-image"
            src="${preview}"
+           data-cource=${original}
            alt="${description}"
-           alt="${description}
            windth="340"
         />
       </a>
     </li>`
     )
-    .join("");
+    .join(" ");
 }
 containerEl.insertAdjacentHTML("beforeend", createMarkup(images));
-console.log(createMarkup);
+// console.log(createMarkup);
 
-//   const itemImage = e.target.classList.contains("gallery-image");
-//   if (!itemImage) return;
-// }
-
-const instance = basicLightbox.create(
-  `<div class="modal">
-    <img windth="1280px" data-cource=${original} alt=${description}/>
-  </div>`
-  // {
-  //   onShow: (instance) => {
-  //     window.addEventListener("keydown", onImgClick);
-  //   },
-  //   onClose: (instance) => {
-  //     window.removeEventListener("keydown", onImgClick);
-  //   },
-  // }
-);
-
-instance.show();
-
-function prevDef(e) {
+function onImgClick(e) {
   e.preventDefault();
   if (e.target.nodeName !== "IMG") {
     return;
   }
 }
+const datasetSource = e.target.dataset.source;
+if (!datasetSource) {
+  instance.element().querySelector("img").src = datasetSource;
+  instance.show();
+}
+const instance = basicLightbox.create(
+  `<div class="modal">
+    
+    <img src="${currentImg}" windth="1280px" height="auto" />
+  </div>`,
+  {
+    onShow: (instance) => {
+      window.addEventListener("keydown", onKeyPress);
+    },
+    onClose: (instance) => {
+      window.removeEventListener("keydown", onKeyPress);
+    },
+  }
+);
 
-function onImgClick(e) {
-  e.preventDefault();
-  if (e.target === e.curentTarget) {
-    return;
+instance.show();
+
+function onKeyPress(e) {
+  if (e.code !== "Escape") {
+    // instance.close();
   }
 }
-const currentImg = e.target.closest([data - cours]);
-const datasetSours = currentImg.dataset.cours;
+// const itemImage = e.target.classList.contains("gallery-image");
+// if (!itemImage) return;
+
+// function onImgClick(e) {
+//   e.preventDefault();
+//   if (e.target === e.curentTarget) {
+//     return;
+//   }
+// }
+// const currentImg = e.target.closest([data - cours]);
+// const datasetSours = currentImg.dataset.cours;
 
 // function onEscKeyPress(e) {
 //   const ESC_KEY_CODE = "Escape";
@@ -152,10 +162,6 @@ const datasetSours = currentImg.dataset.cours;
 //   if (!datasetSours) {
 //     return;
 //   }
-// instance.element().querySelector("img").src = datasetSours;
+//   instance.element().querySelector("img").src = datasetSours;
 //   instance.show();
-// }
-// function onEscKeyPress(e) {
-//   if (e.code !== "Escape") return;
-//   instance.close();
 // }
