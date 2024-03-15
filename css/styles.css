@@ -24,11 +24,10 @@ body {
 }
 .gallery-link {
   text-decoration: none;
-  display: block;
+  display: flex;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-  /* height: 100%; */
-  /* width: 1280px; */
+  height: 100%;
 }
 .gallery-link:hover {
   cursor: zoom-in;
