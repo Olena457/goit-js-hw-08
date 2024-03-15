@@ -75,9 +75,9 @@ function createMarkup(arr) {
            <img
            class="gallery-image"
            src="${preview}"
-           data-cource=${original}
+           data-source=${original}
            alt="${description}"
-           windth="340"
+           width="340"
         />
       </a>
     </li>`
@@ -85,9 +85,9 @@ function createMarkup(arr) {
     .join(" ");
 }
 containerEl.insertAdjacentHTML("beforeend", createMarkup(images));
-containerEl.addEventListener("click", onImageClikc);
+containerEl.addEventListener("click", onImageClick);
 
-function onImageClikc(ev) {
+function onImageClick(ev) {
   standartAction(ev);
 
   if (ev.target.nodeName !== "IMG") {
@@ -96,7 +96,7 @@ function onImageClikc(ev) {
 
   const instance = basicLightbox.create(
     `<img
-  src="${ev.target.dataset.src}" 
+  src="${ev.target.dataset.source}" 
   alt="${ev.target.getAttribute("alt")}" width="800" height="600"
     />`
   );
