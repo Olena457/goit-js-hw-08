@@ -64,26 +64,7 @@ const images = [
   },
 ];
 
-// const liEl = document.createElement("li");
-// liEl.classList.add("gallery-item");
-// const linkEl = document.createElement("a");
-// linkEl.classList.add("gallery-link");
-// linkEl.setAttribute("href", "large-images.jpg");
-
-// linkEl.href = "${original}";
-// const imgEl = document.createElement("img");
-// imgEl.classList.add("gallery-image");
-// imgEl.setAttribute("src", "small-image.jpg");
-// imgEl.setAttribute("windth", "340");
-
-// imgEl.src = "${preview}";
-// imgEl.setAttribute("data-source", "large-images.jpg");
-// imgEl.setAttribute("alt", "Image description");
-// imgEl.alt = "${description}";
-
 const containerEl = document.querySelector(".gallery");
-containerEl.addEventListener("click", onImgClick);
-containerEl.addEventListener("click", onKeyPress);
 
 function createMarkup(arr) {
   return arr
@@ -104,64 +85,30 @@ function createMarkup(arr) {
     .join(" ");
 }
 containerEl.insertAdjacentHTML("beforeend", createMarkup(images));
-// console.log(createMarkup);
+containerEl.addEventListener("click", onImageClikc);
 
-function onImgClick(e) {
-  e.preventDefault();
-  if (e.target.nodeName !== "IMG") {
+function onImageClikc(ev) {
+  standartAction(ev);
+
+  if (ev.target.nodeName !== "IMG") {
     return;
   }
-}
-const datasetSource = e.target.dataset.source;
-if (!datasetSource) {
-  instance.element().querySelector("img").src = datasetSource;
+
+  const instance = basicLightbox.create(
+    `<img
+  src="${ev.target.dataset.src}" 
+  alt="${ev.target.getAttribute("alt")}" width="800" height="600"
+    />`
+  );
   instance.show();
+
+  containerEl.addEventListener("keydown", (ev) => {
+    if (ev.code === "Escape") {
+      instance.close();
+    }
+  });
 }
-const instance = basicLightbox.create(
-  `<div class="modal">
-    
-    <img src="${currentImg}" windth="1280px" height="auto" />
-  </div>`,
-  {
-    onShow: (instance) => {
-      window.addEventListener("keydown", onKeyPress);
-    },
-    onClose: (instance) => {
-      window.removeEventListener("keydown", onKeyPress);
-    },
-  }
-);
 
-instance.show();
-
-function onKeyPress(e) {
-  if (e.code !== "Escape") {
-    // instance.close();
-  }
+function standartAction(ev) {
+  ev.preventDefault();
 }
-// const itemImage = e.target.classList.contains("gallery-image");
-// if (!itemImage) return;
-
-// function onImgClick(e) {
-//   e.preventDefault();
-//   if (e.target === e.curentTarget) {
-//     return;
-//   }
-// }
-// const currentImg = e.target.closest([data - cours]);
-// const datasetSours = currentImg.dataset.cours;
-
-// function onEscKeyPress(e) {
-//   const ESC_KEY_CODE = "Escape";
-//   const escKey = e.code === ESC_KEY_CODE;
-//   if (!escKey) return;
-//   instance.close();
-// }
-// function onImgClick(e) {
-//   e.preventDefault();
-//   if (!datasetSours) {
-//     return;
-//   }
-//   instance.element().querySelector("img").src = datasetSours;
-//   instance.show();
-// }
